@@ -4,8 +4,12 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Prompts\Prompt;
 use Psy\VersionUpdater\GitHubChecker;
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('front.home');
 });
 
 // contoh routing untuk mengarahkan ke view tanpa melalui controller
@@ -28,10 +32,6 @@ Route::get('/daftar_nilai', function() {
     return view('nilai.daftar_nilai');
 });
 
-//Tugas Kelompok
-// 1. Buat repository github untuk tugas akhir dengan akses private
-// 2. Ketua kelompok yang jadi branch master 
-// 3. Laravel yang diinstal oleh ketua kelompok di push di GitHub 
-// 4. Anggota tidak perlu install laravel, melainkan melakukan git clone terhadap Repository
-// 5. setelah cloning lakukan composer install didalam command Prompt
-// 6. collaborate mentor
+Route::get('/dashboard', function() {
+    return view('admin.dashboard');
+});
