@@ -41,6 +41,9 @@ Route::get('/daftar_nilai', function() {
     return view('nilai.daftar_nilai');
 }); 
 
+Route::get('apiproduk', [ProdukController::class, 'produkApi']);
+Route::get('apiproduk/{id}', [ProdukController::class, 'produkApiDetail']);
+
 // middleware berguna sebagai pembatas atau validasi antara visitor yang sudah 
 //memiliki user akses dan belum memiliki akses
 Route::group(['middleware' => ['auth', 'checkActive', 'role:admin|manager|staff']], function(){
