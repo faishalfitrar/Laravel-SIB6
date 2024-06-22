@@ -37,16 +37,13 @@
                                 <li><a class="dropdown-item" href="#!">Popular Items</a></li>
                                 <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
                             </ul>
-                        </li>
-
-                        
+                        </li>                        
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
-
                             @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
@@ -57,14 +54,12 @@
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
-
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
@@ -73,57 +68,57 @@
                         @endguest
                     </ul>
                     {{-- <form class="d-flex"> --}}
-                        @auth
-                            <div class="dropdown">          
-                                <button class="btn btn-outline-dark" data-toggle="dropdown">
-                                    <i class="bi-cart-fill me-1"></i>
-                                    Cart
-                                    <span class="badge bg-dark text-white ms-1 rounded-pill">
-                                        {{count((array) session('cart'))}}
-                                    </span>
-                                </button>
-                                <div class="dropdown-menu">
-                                    <div class="row total-header-section">
-                                        <div class="col-lg-6 col-sm-6 col-6">
-                                            <i class="fa fa-shopping-cart" aria-hidden="true"></i> 
-                                            <span class="badge badge-pill badge-danger">
-                                                {{ count((array) session('cart')) }}
-                                            </span>
-                                        </div>
-                                        @php $total = 0 @endphp
-                                        @foreach((array) session('cart') as $id => $details)
-                                            @php $total += $details['harga_jual'] * $details['quantity'] @endphp
-                                        @endforeach
-                                        <div class="col-lg-6 col-sm-6 col-6 total-section text-right">
-                                            <p>Total: <span class="text-info">Rp. {{ $total }}</span></p>
-                                        </div>
+                    @auth
+                        <div class="dropdown">          
+                            <button class="btn btn-outline-dark" data-toggle="dropdown">
+                                <i class="bi-cart-fill me-1"></i>
+                                Cart
+                                <span class="badge bg-dark text-white ms-1 rounded-pill">
+                                    {{count((array) session('cart'))}}
+                                </span>
+                            </button>
+                            <div class="dropdown-menu">
+                                <div class="row total-header-section">
+                                    <div class="col-lg-6 col-sm-6 col-6">
+                                        <i class="fa fa-shopping-cart" aria-hidden="true"></i> 
+                                        <span class="badge badge-pill badge-danger">
+                                            {{ count((array) session('cart')) }}
+                                        </span>
                                     </div>
-                                    @if(session('cart'))
-                                        @foreach(session('cart') as $id => $details)
-                                            <div class="row cart-detail">
-                                                <div class="col-lg-4 col-sm-4 col-4 cart-detail-img">
-                                                    @empty($details['foto'])
-                                                        <img src="{{ url('admin/image/nophoto.jpg') }}" />
-                                                    @else 
-                                                        <img src="{{ url('admin/image') }}/{{$details['foto']}}" />
-                                                    @endempty
-                                                </div>
-                                                <div class="col-lg-8 col-sm-8 col-8 cart-detail-product">
-                                                    <p>{{ $details['nama'] }}</p>
-                                                    <span class="price text-info"> Rp. {{$details['harga_jual'] }}</span> 
-                                                    <span class="count"> Quantity:{{ $details['quantity'] }}</span>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    @endif
-                                    <div class="row">
-                                        <div class="col-lg-12 col-sm-12 col-12 text-center checkout">
-                                            <a href="#" class="btn btn-primary btn-block">View All</a>
-                                        </div>
+                                    @php $total = 0 @endphp
+                                    @foreach((array) session('cart') as $id => $details)
+                                        @php $total += $details['harga_jual'] * $details['quantity'] @endphp
+                                    @endforeach
+                                    <div class="col-lg-6 col-sm-6 col-6 total-section text-right">
+                                        <p>Total: <span class="text-info">Rp. {{ $total }}</span></p>
                                     </div>
                                 </div>
-                            </div>            
-                        @endauth
+                                @if(session('cart'))
+                                    @foreach(session('cart') as $id => $details)
+                                        <div class="row cart-detail">
+                                            <div class="col-lg-4 col-sm-4 col-4 cart-detail-img">
+                                                @empty($details['foto'])
+                                                    <img src="{{ url('admin/image/nophoto.jpg') }}" />
+                                                @else 
+                                                    <img src="{{ url('admin/image') }}/{{$details['foto']}}" />
+                                                @endempty
+                                            </div>
+                                            <div class="col-lg-8 col-sm-8 col-8 cart-detail-product">
+                                                <p>{{ $details['nama'] }}</p>
+                                                <span class="price text-info"> Rp. {{$details['harga_jual'] }}</span> 
+                                                <span class="count"> Quantity:{{ $details['quantity'] }}</span>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endif
+                                <div class="row">
+                                    <div class="row">
+                                        <a href="{{ url('shop_cart') }}" class="btn btn-primary">View All</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>            
+                    @endauth
             </div>
         </nav>
         @yield('content')
